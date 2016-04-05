@@ -1,0 +1,49 @@
+<?php
+/**
+ * Copyright © 2016 yukoff. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/**
+ * @var $block SendGrid\SendGridSmtp\Block\Adminhtml\System\Config\TestButton
+ * @var $jsonHelper \Magento\Framework\Json\Helper\Data
+ */
+$jsonHelper = $this->helper('Magento\Framework\Json\Helper\Data');
+?>
+
+<script>
+    require([
+        'jquery',
+        'Magento_Ui/js/modal/alert'
+    ], function ($, alert) {
+        window.sendgridSmtpDebugTest = function(){
+            
+            $.ajax({
+                url: '<?php echo $block->getAdminUrl() ?>',
+                type: 'post',
+                dataType: 'html',
+                data: {
+                    form_key: FORM_KEY,
+                    auth: $('#system_sendgridsmtp_auth').val(),
+                    ssl:$('#system_sendgridsmtp_ssl').val(),
+                    smtphost:$('#system_sendgridsmtp_smtphost').val(),
+                    username:$('#system_sendgridsmtp_username').val(),
+                    password:$('#system_sendgridsmtp_password').val(),
+                    email:$('#system_sendgridsmtp_debug_email').val(),
+                    from_email:$('#system_sendgridsmtp_debug_from_email').val()
+
+                },
+                showLoader: true
+            }).done(function(data) {
+                alert({
+                    title:'Result',
+                    content:data
+                });
+            });
+        }
+    });
+</script>
+
+<?php echo $block->getButtonHtml() ?>

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 yukoff. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <system>
+            <sendgridsmtp>
+                <ssl>ssl</ssl>
+                <auth>LOGIN</auth>
+                <smtphost>smtp.sendgrid.net</smtphost>
+                <set_return_path>1</set_return_path>
+                <set_reply_to>1</set_reply_to>
+                <password backend_model="Magento\Config\Model\Config\Backend\Encrypted" />
+            </sendgridsmtp>
+        </system>
+    </default>
+</config>
