@@ -1,0 +1,10 @@
+/.buildpath
+/.cache
+/.metadata
+/.project
+/.settings
+atlassian*
+/nbproject
+/sitemap
+/.idea
+/vendor
