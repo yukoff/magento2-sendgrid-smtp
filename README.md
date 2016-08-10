@@ -1,21 +1,26 @@
 # SendGrid SMTP Plugin for Magento2
 Configure Magento to use SendGrid's SMTP server to send all transactional emails.
 
-*Note:* You need valid SendGrid account.
+*Note:* You need a valid SendGrid account.
 
 ## 1. Install SendGrid SMTP Plugin
+### Using Composer
+```
+composer require yukoff/magento2-sendgrid-smtp
+```
+
+### Using Source Code
+```
+composer config repositories.yukoff-sendgridsmtp git git@github.com:yukoff/magento2-sendgrid-smtp.git
+composer require yukoff/magento2-sendgrid-smtp
+```
+
 ### Manual Installation
 Install SendGrid SMTP plugin for Magento2
  * Download the extension
  * Unzip the file
  * Create a folder {MAGENTO_ROOT}/app/code/SendGrid/SendGridSmtp
- * Copy the content from the unzip folder
-
-### Using Composer
-```
-composer config repositories.yukoff-sendgridsmtp git git@github.com:yukoff/magento2-sendgrid-smtp.git
-composer require yukoff/magento2-sendgrid-smtp
-```
+ * Copy the content from the unzipped folder
 
 ## 2. Enable SendGrid SMTP Plugin
 ```
