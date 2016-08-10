@@ -17,7 +17,6 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * @param \Magento\Framework\App\Helper\Context $context
      * @param \Magento\Framework\ObjectManagerInterface
-     * @return void
      */
     public function __construct(
         \Magento\Framework\App\Helper\Context $context
@@ -47,7 +46,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     }    
     
     /**
-     * Get system config password
+     * Get system config auth type
      * 
      * @param \Magento\Store\Model\ScopeInterface::SCOPE_STORE $store
      * @return string
@@ -67,13 +66,23 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     }
     
     /**
-     * Get system config password
+     * Get system config smtp host
      * 
      * @param \Magento\Store\Model\ScopeInterface::SCOPE_STORE $store
      * @return string
      */
     public function getConfigSmtpHost($store_id = null){
         return $this->scopeConfig->getValue('system/sendgridsmtp/smtphost', \Magento\Store\Model\ScopeInterface::SCOPE_STORE, $store_id);
+    }
+
+    /**
+     * Get system config sendgrid category
+     *
+     * @param \Magento\Store\Model\ScopeInterface::SCOPE_STORE $store
+     * @return string
+     */
+    public function getConfigCategory($store_id = null){
+        return $this->scopeConfig->getValue('system/sendgridsmtp/category', \Magento\Store\Model\ScopeInterface::SCOPE_STORE, $store_id);
     }
     
     /**
@@ -85,9 +94,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     public function getConfigSetReplyTo($store_id = null){
         return $this->scopeConfig->getValue('system/sendgridsmtp/set_reply_to', \Magento\Store\Model\ScopeInterface::SCOPE_STORE, $store_id);
     }
-    
-    
-    
+
     /**
      * Get system config set return path
      * 
@@ -97,8 +104,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     public function getConfigSetReturnPath($store_id = null){
         return $this->scopeConfig->getValue('system/sendgridsmtp/set_return_path', \Magento\Store\Model\ScopeInterface::SCOPE_STORE, $store_id);
     }
-    
-    
+
     /**
      * Get system config return path email
      * 

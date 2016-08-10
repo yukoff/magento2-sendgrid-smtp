@@ -19,18 +19,26 @@ class Index extends Action
     protected $_dataHelper;
 
     /**
+     * @var \Magento\Framework\Json\Helper\Data
+     */
+    protected $_jsonHelper;
+
+    /**
      * Index constructor.
      * @param Context $context
      * @param PageFactory $resultPageFactory
      * @param \SendGrid\SendGridSmtp\Helper\Data $dataHelper
+     * @param \Magento\Framework\Json\Helper\Data $jsonHelper
      */
     public function __construct(
         Context $context,
         PageFactory $resultPageFactory,
-        \SendGrid\SendGridSmtp\Helper\Data $dataHelper
+        \SendGrid\SendGridSmtp\Helper\Data $dataHelper,
+        \Magento\Framework\Json\Helper\Data $jsonHelper
     ) {
         $this->_resultPageFactory = $resultPageFactory;
         $this->_dataHelper = $dataHelper;
+        $this->_jsonHelper = $jsonHelper;
         parent::__construct($context);
     }
 
@@ -48,7 +56,7 @@ class Index extends Action
         $name = 'SendGrid SMTP Plugin Test';
         $username = $request->getPost('username');
         $password = $request->getPost('password');
-        
+
         // if default view
         // see https://github.com/magento/magento2/issues/3019
         if(!$request->getParam('store', false)){
@@ -73,6 +81,9 @@ class Index extends Action
             'password' => $password
         );
 
+        // SendGrid category
+        $category = $request->getPost('category');
+
         $transport = new \Zend_Mail_Transport_Smtp($smtpHost, $smtpConf);
 
         $from = trim($request->getPost('from_email'));
@@ -84,6 +95,13 @@ class Index extends Action
         $mail->addTo($to, $to);
         $mail->setSubject('Hello from SendGrid');
         $mail->setBodyText('Thank you for choosing SendGrid extension.');
+
+        if ($category) {
+            $mail->addHeader(
+                'X-SMTPAPI',
+                $this->_jsonHelper->jsonEncode([ 'category' => $category ])
+            );
+        }
 
         $result = __('Sent... Please check your email') . ' ' . $to;
         

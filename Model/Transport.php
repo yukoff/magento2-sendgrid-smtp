@@ -14,13 +14,16 @@ class Transport extends \Zend_Mail_Transport_Smtp implements \Magento\Framework\
      */
     protected $_message;
 
-
     /**
      * @param \Magento\Framework\Mail\MessageInterface $message
      * @param \SendGrid\SendGridSmtp\Helper\Data $dataHelper
+     * @param \Magento\Framework\Json\Helper\Data $jsonHelper
      * @throws \Zend_Mail_Exception
      */
-    public function __construct(\Magento\Framework\Mail\MessageInterface $message, \SendGrid\SendGridSmtp\Helper\Data $dataHelper)
+    public function __construct(
+        \Magento\Framework\Mail\MessageInterface $message,
+        \SendGrid\SendGridSmtp\Helper\Data $dataHelper,
+        \Magento\Framework\Json\Helper\Data $jsonHelper)
     {
         if (!$message instanceof \Zend_Mail) {
             throw new \InvalidArgumentException('The message should be an instance of \Zend_Mail');
@@ -47,7 +50,16 @@ class Transport extends \Zend_Mail_Transport_Smtp implements \Magento\Framework\
         if ($message->getReplyTo() === NULL && $dataHelper->getConfigSetReplyTo()) {
             $message->setReplyTo($returnPathEmail);
         }
-       
+
+        // set SendGrid category
+        if ($dataHelper->getConfigCategory()) {
+            $xSmtpApiHeader = [
+                'category' => $dataHelper->getConfigCategory()
+            ];
+            // FIXME: X-SMTPAPI used in several places, make it a constant instead
+            $message->addHeader('X-SMTPAPI', $jsonHelper->jsonEncode($xSmtpApiHeader));
+        }
+
         // set config
         $smtpConf = [
            'auth' => strtolower($dataHelper->getConfigAuth()),
@@ -55,8 +67,7 @@ class Transport extends \Zend_Mail_Transport_Smtp implements \Magento\Framework\
            'username' => $dataHelper->getConfigUsername(),
            'password' => $dataHelper->getConfigPassword()
         ];
-        
-        
+
         $smtpHost = $dataHelper->getConfigSmtpHost();
         parent::__construct($smtpHost, $smtpConf);
         $this->_message = $message;

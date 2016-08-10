@@ -32,6 +32,10 @@
                     <label>Password</label>
                     <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
                 </field>
+                <field id="category" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Category</label>
+                    <comment><![CDATA[SendGrid Category to use. Please see <a href="https://sendgrid.com/docs/Glossary/categories.html" target="_blank">SendGrid documentation</a> for more details.]]></comment>
+                </field>
                 <field id="set_reply_to" translate="label" type="select" sortOrder="35" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Set Reply-to</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
