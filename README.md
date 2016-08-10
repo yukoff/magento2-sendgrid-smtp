@@ -24,4 +24,4 @@ php -f bin/magento setup:upgrade
 ```
 
 ## 3. Config SendGrid SMTP Plugin
-Log into your Magetno2 backend, then goto `Store -> System -> SendGrid SMTP` and enter your email credentials
+Log into your Magetno2 backend, then goto `Store -> System -> SendGrid SMTP` and enter your email credentials, SendGrid category (if used) etc.
