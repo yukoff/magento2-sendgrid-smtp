@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/yukoff/magento2-sendgrid-smtp.png?label=ready&title=Ready)](https://waffle.io/yukoff/magento2-sendgrid-smtp)
 # SendGrid SMTP Plugin for Magento2
 Configure Magento to use SendGrid's SMTP server to send all transactional emails.
 
